@@ -3,7 +3,7 @@ import App from "./App.vue";
 
 // import "~/styles/element/index.scss";
 
-// import ElementPlus from "element-plus";
+import ElementPlus from "element-plus";
 // import all element css, uncommented next line
 // import "element-plus/dist/index.css";
 // import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
@@ -31,7 +31,12 @@ app.use(VueAxios, axios)
 //     locale: zhLocale
 // })
 import * as ElIcon from '@element-plus/icons-vue'
+// @ts-ignore
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
+app.use(ElementPlus, {
+    locale: zhCn,
+})
 Object.keys(ElIcon).forEach((key) => {
     // @ts-ignore
     app.component(key, ElIcon[key])
