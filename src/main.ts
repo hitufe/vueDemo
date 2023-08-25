@@ -6,6 +6,7 @@ import App from "./App.vue";
 // import ElementPlus from "element-plus";
 // import all element css, uncommented next line
 // import "element-plus/dist/index.css";
+// import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
 // or use cdn, uncomment cdn link in `index.html`
 
@@ -26,3 +27,12 @@ app.mount("#app");
 import VueAxios from 'vue-axios'
 
 app.use(VueAxios, axios)
+// app.use(ElementPlus, {
+//     locale: zhLocale
+// })
+import * as ElIcon from '@element-plus/icons-vue'
+
+Object.keys(ElIcon).forEach((key) => {
+    // @ts-ignore
+    app.component(key, ElIcon[key])
+})

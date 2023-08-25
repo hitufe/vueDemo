@@ -8,21 +8,9 @@
             placeholder="输入文章标题"
         ></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button
-            size="small"
-            type="primary"
-            icon="el-icon-search"
-            @click="search"
-        >搜索</el-button
-        >
-        <el-button
-            size="small"
-            type="primary"
-            icon="el-icon-plus"
-            @click="handleEdit()"
-        >添加</el-button
-        >
+      <el-form-item >
+        <el-button size="small" type="primary" plain icon="Search" @click="search">搜索</el-button>
+        <el-button size="small" type="primary" plain icon="Edit" @click="handleEdit()">添加</el-button>
       </el-form-item>
     </el-form>
     <!--列表-->
@@ -41,22 +29,15 @@
       <el-table-column sortable prop="body" label="文章内容" min-width="5">
       </el-table-column>
       <el-table-column align="center" label="操作" min-width="6">
-        <template slot-scope="scope">
-          <el-button size="mini" @click="doEdit(scope.$index, scope.row)"
-          >编辑</el-button
-          >
-          <el-button
-              size="mini"
-              type="danger"
-              @click="deleteUser(scope.$index, scope.row)"
-          >删除</el-button
-          >
+        <template v-slot="scope">
+          <el-button size="small" @click="doEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="small" type="danger" @click="deleteUser(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <!-- 分页条 -->
     <el-pagination
-        style="margin-top: 20px;"
+        style="margin-top: 30px; justify-content: center;"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="formInline.page"
@@ -70,7 +51,7 @@
     <!-- 编辑界面 -->
     <el-dialog
         :title="title"
-        :visible.sync="editFormVisible"
+        v-model="editFormVisible"
         width="30%"
         @before-close="closeDialog"
     >
@@ -104,7 +85,8 @@
             type="primary"
             class="title"
             @click="submitForm('editForm')"
-        >保存</el-button
+        >保存
+        </el-button
         >
       </div>
     </el-dialog>
@@ -112,6 +94,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -213,16 +196,16 @@ export default {
               type: "success",
               message: "删除成功!"
             });
-            let url =  'http://localhost:8080/article/del';
+            let url = 'http://localhost:8080/article/del';
             // let url = this.axios.urls.SYSTEM_ARTICLE_DEL;
             this.axios
-                .post(url, { id: row.id })
+                .post(url, {id: row.id})
                 .then(response => {
                   //console.log(response);
                   this.clearData();
                   this.search();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                   console.log(error);
                 });
           })
@@ -240,9 +223,9 @@ export default {
           let url;
           if (this.editForm.id == 0) {
             //  url = this.axios.urls.SYSTEM_ARTICLE_ADD;
-            url =  'http://localhost:8080/article/add';
+            url = 'http://localhost:8080/article/add';
           } else {
-            url =  'http://localhost:8080/article/edit';
+            url = 'http://localhost:8080/article/edit';
             //url = this.axios.urls.SYSTEM_ARTICLE_EDIT;
           }
           // let url = 'http://localhost:8080/T216_SSH/vue/userAction_login.action';
@@ -258,7 +241,7 @@ export default {
                 this.clearData();
                 this.search();
               })
-              .catch(function(error) {
+              .catch(function (error) {
                 console.log(error);
               });
         } else {
@@ -269,7 +252,7 @@ export default {
     },
     doSearch(params) {
       //let url = this.axios.urls.SYSTEM_ARTICLE_LIST;
-      let  url =  'http://localhost:8080/article/list';
+      let url = 'http://localhost:8080/article/list';
       // let url = 'http://localhost:8080/T216_SSH/vue/userAction_login.action';
 
       this.axios
@@ -279,7 +262,7 @@ export default {
             this.listData = response.data.result;
             this.total = response.data.pageBean.total;
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log(error);
           });
     },
