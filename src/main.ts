@@ -16,6 +16,7 @@ import "uno.css";
 import router from '~/router/index.js'
 
 import axios from 'axios'
+import "element-plus/theme-chalk/src/message-box.scss";
 // If you want to use ElMessage, import it.
 import "element-plus/theme-chalk/src/message.scss";
 
@@ -32,11 +33,12 @@ app.use(VueAxios, axios)
 // })
 import * as ElIcon from '@element-plus/icons-vue'
 // @ts-ignore
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+/*import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 app.use(ElementPlus, {
     locale: zhCn,
-})
+})*/
+
 Object.keys(ElIcon).forEach((key) => {
     // @ts-ignore
     app.component(key, ElIcon[key])

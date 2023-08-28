@@ -8,7 +8,7 @@
             placeholder="输入文章标题"
         ></el-input>
       </el-form-item>
-      <el-form-item >
+      <el-form-item>
         <el-button size="small" type="primary" plain icon="Search" @click="search">搜索</el-button>
         <el-button size="small" type="primary" plain icon="Edit" @click="handleEdit()">添加</el-button>
       </el-form-item>
@@ -94,6 +94,9 @@
 </template>
 
 <script>
+
+import {ElMessageBox} from "element-plus";
+import {ElMessage} from 'element-plus';
 
 export default {
   data() {
@@ -186,15 +189,14 @@ export default {
       //   .catch(function(error) {
       //     console.log(error);
       //   });
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      ElMessageBox.confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
           .then(() => {
-            this.$message({
-              type: "success",
-              message: "删除成功!"
+            ElMessage.success({
+              message: '删除成功!'
             });
             let url = 'http://localhost:8080/article/del';
             // let url = this.axios.urls.SYSTEM_ARTICLE_DEL;
@@ -210,8 +212,7 @@ export default {
                 });
           })
           .catch(() => {
-            this.$message({
-              type: "info",
+            ElMessage.info({
               message: "已取消删除"
             });
           });

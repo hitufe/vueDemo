@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import {toggleDark} from "~/composables";
-import {ElMessage} from "element-plus";
 import {useRouter} from "vue-router";
+import { ElMessage, ElMessageBox } from 'element-plus'
+import type { Action } from 'element-plus'
 
 const router = useRouter();
 const PathUrl = (param) => {
@@ -14,6 +15,21 @@ const PathUrl = (param) => {
 const toast = () => {
   ElMessage.info("我弹出来了")
 };
+
+
+const open = () => {
+  ElMessageBox.alert('This is a message', 'Title', {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    confirmButtonText: 'OK',
+    callback: (action: Action) => {
+      ElMessage({
+        type: 'info',
+        message: `action: ${action}`,
+      })
+    },
+  })
+}
 </script>
 
 <template>
@@ -21,7 +37,7 @@ const toast = () => {
     <el-menu-item index="1" @click="PathUrl('')">Home</el-menu-item>
     <el-sub-menu index="2">
       <template #title>Workspace</template>
-      <el-menu-item index="2-1">item one</el-menu-item>
+      <el-menu-item index="2-1" @click="open">item one</el-menu-item>
       <el-menu-item index="2-2">item two</el-menu-item>
       <el-menu-item index="2-3">item three</el-menu-item>
       <el-sub-menu index="2-4">
