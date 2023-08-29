@@ -1,11 +1,12 @@
 <template>
   <div>
-    <el-form :inline="true" :model="formInline" class="user-search">
+    <el-form :inline="true" :model="formInline" class="user-search" @submit.native.prevent>
       <el-form-item label="搜索：">
         <el-input
             size="small"
             v-model="formInline.title"
             placeholder="输入文章标题"
+            @keyup.enter.native="search"
         ></el-input>
       </el-form-item>
       <el-form-item>
@@ -42,7 +43,6 @@
         @current-change="handleCurrentChange"
         :current-page="formInline.page"
         :page-sizes="[10, 20, 30, 50]"
-        :page-size="100"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
     >

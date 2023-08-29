@@ -30,6 +30,8 @@ const open = () => {
     },
   })
 }
+import { ref } from 'vue'
+const input = ref('')
 </script>
 
 <template>
@@ -45,6 +47,7 @@ const open = () => {
         <el-menu-item index="2-4-1">item one</el-menu-item>
         <el-menu-item index="2-4-2">item two</el-menu-item>
         <el-menu-item index="2-4-3">item three</el-menu-item>
+        <el-input v-model="input" placeholder="Please input" />
       </el-sub-menu>
     </el-sub-menu>
     <el-menu-item index="3" disabled>Info</el-menu-item>
