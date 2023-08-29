@@ -152,6 +152,7 @@ export default {
     closeDialog() {
       //关闭对话框
       this.clearData();
+
     },
     handleEdit() {
       //添加
@@ -222,12 +223,10 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           let url;
-          if (this.editForm.id == 0) {
-            //  url = this.axios.urls.SYSTEM_ARTICLE_ADD;
+          if (this.editForm.id === 0) {
             url = 'http://localhost:8080/article/add';
           } else {
             url = 'http://localhost:8080/article/edit';
-            //url = this.axios.urls.SYSTEM_ARTICLE_EDIT;
           }
           // let url = 'http://localhost:8080/T216_SSH/vue/userAction_login.action';
 
@@ -239,22 +238,35 @@ export default {
                 //   message: response.data.msg,
                 //   type: 'success'
                 // });
+                if (this.editForm.id === 0) {
+                  ElMessage.success({
+                    message: '新增成功!'
+                  });}
+                else {
+                  ElMessage.success({
+                    message: '修改成功!'
+                  });
+                }
                 this.clearData();
                 this.search();
               })
               .catch(function (error) {
                 console.log(error);
+                ElMessage.error({
+                  message: '修改失败!'
+                });
               });
         } else {
           console.log("error submit!!");
+          ElMessage.error({
+            message: '修改失败!'
+          });
           return false;
         }
       });
     },
     doSearch(params) {
-      //let url = this.axios.urls.SYSTEM_ARTICLE_LIST;
       let url = 'http://localhost:8080/article/list';
-      // let url = 'http://localhost:8080/T216_SSH/vue/userAction_login.action';
 
       this.axios
           .post(url, params)
